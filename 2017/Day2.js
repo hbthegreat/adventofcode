@@ -14,7 +14,7 @@ var input = `4347	3350	196	162	233	4932	4419	3485	4509	4287	4433	4033	207	3682	2
 134	130	2236	118	142	2350	3007	2495	2813	2833	2576	2704	169	2666	2267	850
 401	151	309	961	124	1027	1084	389	1150	166	1057	137	932	669	590	188
 784	232	363	316	336	666	711	430	192	867	628	57	222	575	622	234`;
-
+/*Part 1*/
 var rows = input.split('\n');
 function calcDifference(row){
     var lowest = Math.min(...row);
@@ -25,4 +25,31 @@ var checkSum = 0;
 for(var i = 0; i < rows.length; i++){
     var row = rows[i].split('\t');
     checkSum = checkSum + calcDifference(row);
+}
+
+/*Part 2*/
+var rows = input.split('\n');
+function isEvenDivisable(num1,num2){
+    return num1 % num2 == 0;
+}
+function calcEvenDivision(row){
+    var diviso = 0;
+    for(var j = 0; j < row.length; j++){
+        var current = row[j];
+        for(var k = 0; k < row.length; k++){
+            if(k == j){
+                continue;
+            }
+            var kcurrent = row[k];
+            if(isEvenDivisable(current,kcurrent)){
+                diviso = current/kcurrent;
+            }
+        }
+    }
+    return diviso;
+}
+var checkSum = 0;
+for(var i = 0; i < rows.length; i++){
+    var row = rows[i].split('\t');
+    checkSum = checkSum + calcEvenDivision(row);
 }
