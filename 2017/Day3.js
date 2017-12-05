@@ -55,6 +55,35 @@ function spiral(n) {
     return pos;
 }
 
+function getSurroundingTotal(x,y){
+    var total = 0;
+    if(emptyGrid[x+1][y]!== undefined){
+        total= total+emptyGrid[x+1][y];
+    }
+    if(emptyGrid[x-1][y]!== undefined){
+        total= total+emptyGrid[x-1][y];
+    }
+    if(emptyGrid[x][y-1]!== undefined){
+        total= total+emptyGrid[x][y-1];
+    }
+    if(emptyGrid[x][y+1]!== undefined){
+        total= total+emptyGrid[x][y+1];
+    }
+    if(emptyGrid[x+1][y+1]!== undefined){
+        total= total+emptyGrid[x+1][y+1];
+    }
+    if(emptyGrid[x+1][y-1]!== undefined){
+        total= total+emptyGrid[x+1][y-1];
+    }
+    if(emptyGrid[x-1][y+1]!== undefined){
+        total= total+emptyGrid[x-1][y+1];
+    }
+    if(emptyGrid[x-1][y-1]!== undefined){
+        total= total+emptyGrid[x-1][y-1];
+    }
+    return total;
+}
+
 var onex = 0;
 var oney = 0;
 var endx = 0;
@@ -64,16 +93,21 @@ for (var i = 1; i < input; i++) {
 	var x = starter + pos[0];
     var y = starter + pos[1];
     if(x < 540 && y < 540){
-        emptyGrid[x][y] = i;
+        var surroundingTotal = getSurroundingTotal(x,y);
         if(i == 1){
-            console.log(x+","+y);
+            emptyGrid[x][y] = i;
             onex = x;
             oney = y;
+            console.log(x+ "," +y);
+        }else{
+            emptyGrid[x][y] = surroundingTotal;
         }
-        if(i == 277678){
-            console.log(x+","+y);
+        if(surroundingTotal > 277678){
+            console.log(surroundingTotal);
+            console.log(x+ "," +y);
             var endx = x;
             var endy = y;
+            break;
         }
     }
 }
